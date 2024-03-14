@@ -94,26 +94,22 @@ const Navbar = () => {
   const loginStatus = () => {
     const token = localStorage.getItem('jwt');
     if(token){
-      return [
-        <>
-         <div onClick={() => {setActiveClass('more');setLogoutPageOpen(true)}} className='more flex items-center gap-3 px-6 py-[14px] hover:bg-gray-100 rounded-lg'>
-         <span className='text-2xl'><CiLogin /></span>
-        <span>Logout</span>
+      return (
+        <div key="logout" onClick={() => {setActiveClass('more');setLogoutPageOpen(true)}} className='more flex items-center gap-3 px-6 py-[14px] hover:bg-gray-100 rounded-lg'>
+          <span className='text-2xl'><CiLogin /></span>
+          <span>Logout</span>
         </div>
-        </>
-      ]
-    }
-    else{
-      return[
-        <>
-        <Link to='/login' onClick={() => setActiveClass('more')} className='more flex items-center gap-3 px-6 py-[14px] hover:bg-gray-100 rounded-lg'>
-        <span className='text-2xl'><CiLogin /></span>
-       <span>Login</span>
-       </Link>
-       </>
-      ]
+      );
+    } else {
+      return (
+        <Link key="login" to='/login' onClick={() => setActiveClass('more')} className='more flex items-center gap-3 px-6 py-[14px] hover:bg-gray-100 rounded-lg'>
+          <span className='text-2xl'><CiLogin /></span>
+          <span>Login</span>
+        </Link>
+      );
     }
   }
+  
  
 
 
@@ -256,10 +252,18 @@ const Navbar = () => {
     <span>Create</span>
   </Link>
 
-  <Link to='/profile' onClick={() => setActiveClass('profile')} className='profile flex items-center gap-3 px-6 py-[14px] hover:bg-gray-100 rounded-lg'>
-    <span ><Avatar src={user.profilephoto ? user.profilephoto : ''}  sx={{ width: 26, height: 26 }}/></span>
-    <span>Profile</span>
-  </Link>
+  <Link to='/profile' onClick={handlemdprofile}>
+  {mdprofile ? (
+    <FaUserCircle />
+  ) : (
+    user && user.profilephoto ? (
+      <Avatar src={user.profilephoto} sx={{ width: 26, height: 26 }} />
+    ) : (
+      <FaUserCircle /> // Or any other fallback component or placeholder
+    )
+  )}
+</Link>
+
 
 
   {loginStatus()}
@@ -281,10 +285,15 @@ const Navbar = () => {
   <span onClick={handlemdmessages}>{mdmessages ? <BsMessenger/> : <RiMessengerLine/>}</span>
   
   <Link to='/profile' onClick={handlemdprofile}>
-    {mdprofile ? <FaUserCircle/> :
-  <Avatar src={user.profilephoto ? user.profilephoto : ''}  sx={{ width: 26, height: 26 }}/>
-    }
-  </Link>
+  {mdprofile ? (
+    <FaUserCircle />
+  ) : (
+    user && user.profilephoto && (
+      <Avatar src={user.profilephoto} sx={{ width: 26, height: 26 }} />
+    )
+  )}
+</Link>
+
 
   </nav>
 
@@ -316,4 +325,8 @@ const Navbar = () => {
 }
 
 export default Navbar
+
+
+
+
 
