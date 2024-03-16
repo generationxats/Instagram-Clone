@@ -252,12 +252,12 @@ const Navbar = () => {
     <span>Create</span>
   </Link>
 
-  <Link to='/profile' onClick={handlemdprofile}>
+  <Link to='/profile' onClick={handlemdprofile} className='create flex items-center gap-3 px-6 py-[14px] hover:bg-gray-100 rounded-lg '>
   {mdprofile ? (
     <FaUserCircle />
   ) : (
     user && user.profilephoto ? (
-      <Avatar src={user.profilephoto} sx={{ width: 26, height: 26 }} />
+      <Avatar src={user.profilephoto} sx={{ width: 35, height: 35 }} />
     ) : (
       <FaUserCircle /> // Or any other fallback component or placeholder
     )
